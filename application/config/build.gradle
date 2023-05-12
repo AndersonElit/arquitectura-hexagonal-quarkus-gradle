@@ -1,11 +1,11 @@
-apply plugin: 'java'
-group 'org.arquitectura.hexagonal'
-version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
+    implementation project(path: ':use-cases')
+    implementation project(path: ':model')
+    implementation project(path: ':controllers')
+    implementation project(path: ':postgresql-repository')
 }

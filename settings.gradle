@@ -1,9 +1,9 @@
 
 pluginManagement {
     repositories {
-        //mavenCentral()
+        mavenCentral()
         gradlePluginPortal()
-        //mavenLocal()
+        mavenLocal()
     }
     plugins {
         id "${quarkusPluginId}" version "${quarkusPluginVersion}"
@@ -13,7 +13,11 @@ rootProject.name='hexagonal-gradle'
 
 include ':model'
 project(':model').projectDir = new File(rootDir, 'domain/model')
+include ':use-cases'
+project(':use-cases').projectDir = new File(rootDir, 'domain/use-cases')
 include ':controllers'
 project(':controllers').projectDir = new File(rootDir, 'infrastructure/entry-points/controllers')
 include ':config'
 project(':config').projectDir = new File(rootDir, 'application/config')
+include ':postgresql-repository'
+project(':postgresql-repository').projectDir = new File(rootDir, 'infrastructure/driven-adapters/postgresql-repository')

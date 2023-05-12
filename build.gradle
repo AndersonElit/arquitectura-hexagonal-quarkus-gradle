@@ -14,8 +14,14 @@ dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-resteasy-reactive'
+    implementation 'io.quarkus:quarkus-mutiny'
+    implementation project(path: ':use-cases')
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    testCompileOnly 'org.projectlombok:lombok:1.18.26'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
 }
 
 group 'org.arquitectura.hexagonal'
@@ -26,21 +32,21 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-sourceSets {
+/*sourceSets {
     main {
         java {
-            //srcDirs = fileTree(projectDir).matching {
-            //    include '**/*src/main/java'
-            //}
-            srcDirs = ['infrastructure/entry-points/controllers/src/main/java']
+
+            srcDirs = [
+                        'application/config/src/main/java'
+                        'domain/model/src/main/java',
+                        'infrastructure/entry-points/controllers/src/main/java',
+                        'infrastructure/driven-adapters/postgresql-repository/src/main/java']
         }
         resources {
-            //srcDirs = fileTree(projectDir).matching {
-            //    include '**/*src/main/resources'
-            //}
+            srcDirs = ['application/config/src/main/resources']
         }
     }
-}
+}*/
 
 test {
     systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
