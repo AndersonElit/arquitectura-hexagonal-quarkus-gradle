@@ -1,0 +1,19 @@
+
+pluginManagement {
+    repositories {
+        //mavenCentral()
+        gradlePluginPortal()
+        //mavenLocal()
+    }
+    plugins {
+        id "${quarkusPluginId}" version "${quarkusPluginVersion}"
+    }
+}
+rootProject.name='hexagonal-gradle'
+
+include ':model'
+project(':model').projectDir = new File(rootDir, 'domain/model')
+include ':controllers'
+project(':controllers').projectDir = new File(rootDir, 'infrastructure/entry-points/controllers')
+include ':config'
+project(':config').projectDir = new File(rootDir, 'application/config')
