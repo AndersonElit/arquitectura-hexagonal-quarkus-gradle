@@ -9,15 +9,36 @@ pluginManagement {
         id "${quarkusPluginId}" version "${quarkusPluginVersion}"
     }
 }
+
 rootProject.name='hexagonal-gradle'
 
 include ':model'
-project(':model').projectDir = new File(rootDir, 'domain/model')
+project(':model').projectDir = file('./domain/model')
 include ':use-cases'
-project(':use-cases').projectDir = new File(rootDir, 'domain/use-cases')
+project(':use-cases').projectDir = file('./domain/use-cases')
 include ':controllers'
-project(':controllers').projectDir = new File(rootDir, 'infrastructure/entry-points/controllers')
+project(':controllers').projectDir = file('./infrastructure/entry-points/controllers')
 include ':config'
-project(':config').projectDir = new File(rootDir, 'application/config')
+project(':config').projectDir = file('./application/config')
 include ':postgresql-repository'
-project(':postgresql-repository').projectDir = new File(rootDir, 'infrastructure/driven-adapters/postgresql-repository')
+project(':postgresql-repository').projectDir = file('./infrastructure/driven-adapters/postgresql-repository')
+
+FileTree potentialModules = fileTree(rootProject.projectDir) {
+    include '**/*.gradle'
+    exclude 'base.gradle', 'build', 'buildSrc', '**/gradle', 'settings.gradle', '/src', '/build.gradle', 'out'
+}
+
+potentialModules.forEach {
+    println "Encontre modulo: "+it
+}
+
+/*
+potentialModules.forEach {
+    String subprojectName = it.parentFile.name
+    String subprojectPath = ':'.concat(subprojectName)
+    include subprojectPath
+    def subproject = findProject("${subprojectPath}")
+    subproject.name = it.parentFile.parentFile.name.concat('-').concat(subprojectName)
+    subproject.projectDir = it.parentFile
+    subproject.buildFileName = it.name
+}*/

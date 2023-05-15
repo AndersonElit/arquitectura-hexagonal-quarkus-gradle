@@ -1,8 +1,4 @@
 
-apply plugin: 'java'
-group 'org.arquitectura.hexagonal'
-version '1.0-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }

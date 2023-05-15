@@ -6,9 +6,6 @@ allprojects {
     group project.property("group")
     version project.property("version")
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
     }
@@ -25,10 +22,25 @@ subprojects {
         mavenCentral()
     }
 
+    compileJava {
+        options.encoding = 'UTF-8'
+        options.compilerArgs << '-parameters'
+    }
+
+    compileTestJava {
+        options.encoding = 'UTF-8'
+    }
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
     dependencies {
         implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
         implementation 'io.quarkus:quarkus-arc'
         implementation 'io.quarkus:quarkus-resteasy-reactive'
+        implementation 'io.quarkus:quarkus-resteasy-jsonb'
         implementation 'io.quarkus:quarkus-mutiny'
         testImplementation 'io.quarkus:quarkus-junit5'
         testImplementation 'io.rest-assured:rest-assured'
